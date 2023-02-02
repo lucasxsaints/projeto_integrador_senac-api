@@ -6,19 +6,19 @@ const auth = {
         const salt = await bcrypt.genSalt(12);
         return await bcrypt.hash(password, salt);
     },
-    comparePasswords: async function (passwordUser, passwordDB) {
-        const checkPass = await bcrypt.compare(passwordUser, passwordDB);
+    comparePasswords: async function (passwordUsuario, passwordDB) {
+        const checkPass = await bcrypt.compare(passwordUsuario, passwordDB);
         if (!checkPass) {
             throw new Error("Senha invalida!");
         }
     },
-    createToken: function (user) {
+    createToken: function (Usuario) {
         try {
             const secret = process.env.SECRET;
             const token = jwt.sign({
-                id: user._id,
-                nome: user.nome,
-                perfil: user.perfil
+                id: Usuario._id,
+                nome: Usuario.nome,
+                perfil: Usuario.perfil
             }, secret);
             return token;
         } catch (error) {
@@ -34,12 +34,12 @@ const auth = {
                 return res.status(401).json({ error: "Usuário sem acesso!" });
             }
             const secret = process.env.SECRET;
-            jwt.verify(token, secret, (err, userInfo) => {
+            jwt.verify(token, secret, (err, UsuarioInfo) => {
                 if (err) {
                     return res.status(401).json({ error: "Usuário sem acesso!" });
                 }
-                console.log(userInfo);
-                return userInfo;
+                console.log(UsuarioInfo);
+                return UsuarioInfo;
             });
             next();
         } catch (error) {

@@ -21,11 +21,11 @@ app.get("/", auth.checkToken, function (req, res) {
 });
 
 app.use(express.static('./public'));
-const userRouter = require("./routes/userRouter");
-const addressRouter = require("./routes/addressRouter");
+const UsuarioRouter = require("./routes/usuarioRouter");
+const EncomendaRouter = require("./routes/encomendaRouter");
 
-app.use(userRouter);
-app.use(addressRouter);
+app.use(UsuarioRouter);
+app.use(EncomendaRouter);
 
 //Banco de Dados
 mongoose.set('strictQuery', false);

@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
-const User = mongoose.model("User", {
+const Usuario = mongoose.model("Usuario", {
     nome: String,
-    foto: [String],
-    cpf: String,
     email: {
         type: String,
         unique: true,
@@ -11,10 +9,12 @@ const User = mongoose.model("User", {
     },
     senha: String,
     telefone: String,
-    data_nasc: String,
+    apartamento: String,
+    bloco: String,
+    andar: String,
     perfil: {
         type: Number,
-        default: 1 //roles: 0 = admin && 1 = cliente 
+        default: 1 //roles: 0 = admin && 1 = usuario 
     },
     ative: {
         type: Boolean,
@@ -22,4 +22,4 @@ const User = mongoose.model("User", {
     }
 });
 
-module.exports = User;
+module.exports = Usuario;
