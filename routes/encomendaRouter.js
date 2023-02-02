@@ -18,10 +18,10 @@ router.get("/encomenda/list/:bloco/:andar/:apartamento", async function (req, re
         let bloco = req.params.bloco;
         let andar = req.params.andar;
         let apartamento = req.params.apartamento;
-        let Encomenda = await Encomenda.find(
-            { bloco: bloco, andar: andar, apartamento: apartamento, data_saida: !null },
+        let encomenda = await Encomenda.find(
+            { bloco: bloco, andar: andar, apartamento: apartamento, ativo: true },
         );
-        res.status(200).json(Encomenda);
+        res.status(200).json(encomenda);
     } catch (error) {
         res.status(500).json({ error: "Erro ao cadastrar!" });
     }
@@ -30,8 +30,8 @@ router.get("/encomenda/list/:bloco/:andar/:apartamento", async function (req, re
 router.get("/encomenda/:id", async function (req, res) {
     try {
         let idEncomenda = req.params.id;
-        let Encomenda = await Encomenda.findOne({ _id: idEncomenda });
-        res.status(200).json(Encomenda);
+        let encomenda = await Encomenda.findOne({ _id: idEncomenda });
+        res.status(200).json(encomenda);
     } catch (error) {
         res.status(500).json({ error: "Erro ao buscar!" });
     }
@@ -41,10 +41,10 @@ router.patch("/encomenda/:id", async function (req, res) {
     try {
         // Receber e montar o usuário
         let idEncomenda = req.params.id;
-        const Encomenda = monteEncomenda(req);
+        const encomenda = monteEncomenda(req);
         // Validar os dados;
-        validEncomenda(Encomenda, true);
-        const updateEncomenda = await Encomenda.updateOne({ _id: idEncomenda }, Encomenda);
+        validEncomenda(encomenda, true);
+        const updateEncomenda = await Encomenda.updateOne({ _id: idEncomenda }, encomenda);
 
         if (updateEncomenda.matchedCount > 0) {
             res.status(200).json({ message: "Atualizado!" });

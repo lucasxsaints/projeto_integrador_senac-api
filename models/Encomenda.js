@@ -9,6 +9,10 @@ const Encomenda = mongoose.model("Encomenda", {
         default: new Date(),
     },
     data_saida: Date,
+    ativo: {
+        type: Boolean,
+        default: true,
+    }
 });
 
 module.exports = Encomenda;
